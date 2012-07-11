@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <title>AgMIP ACE-UI Prototype v1.0</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+		
+		<link rel="stylesheet"  href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
+		<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>	
+				
+		
+		<link rel="stylesheet" href="aceui.style.a.css" type="text/css">
+        <link rel="stylesheet" href="aceui.style.b.css" type="text/css">
+		
+        <script src="../OpenLayers.js?mobile"></script>
+		
+        <script src="aceui-pver1.0-base.js"></script>
+        <script src="aceui-pver1.0-search.js"></script>
+		<script src="aceui-pver1.0-datatool.js"></script>
+		<script src="aceui-pver1.0-map.js"></script>
+		<script src="aceui-pver1.0-data-factory.js"></script>	
+		<script src="aceui-pver1.0-raw-data.js"></script>		
+		
+		<!-- jeoquery library -->
+		<script type="text/javascript" src="jeoquery.js"></script>
+		
+    </head>
+    <body>
+		<!-- ---------------------------------------------------------------------------------- -->
+        <h1 id="title">AgMIP ACE-UI Prototype v1.0</h1>
+        <div id="tags">
+          AgMIP ACE-UI Prototype, jquery
+        </div>
+        <p id="shortdesc">
+          AgMIP ACE-UI Prototype, Using jQuery Mobile to display an OpenLayers map.
+        </p>
+
+		<!-- ---------------------------------------------------------------------------------- -->
+		<!-- main Map Page -->
+        <div data-role="page" id="mappage">
+
+			<!-- menu buttons in main Map page -->
+			<div data-role="header" class="ui-bar ui-bar-c">
+				<h3 style="display:inline-block;margin:0 0 0 0;">AgMIP ACE-UI Prototype (ver 0.5) 
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;			
+				|<a href="#searchpage" data-icon="search" data-role="button" >Search</a>|            
+				<a href="#datatoolsexportpage" data-icon="datatool" data-role="button">Data Tools</a>|
+				<a href="#userguidepage" data-icon="userguide" data-role="button">User Guide</a>|
+				<a href="#layerspage" data-icon="layers" data-role="button">Layers</a>|
+				</h3>
+			</div>		
+
+			<!-- Map -->	
+			<div data-role="content">
+				<div id="map"></div>
+			</div>
+
+			<!-- navigation buttons in map -->
+			<div id="navigation" data-role="controlgroup" data-type="vertical">
+				<a href="#" data-role="button" data-icon="plus" id="plus" data-iconpos="notext"></a>
+				<a href="#" data-role="button" data-icon="home" id="extent" data-iconpos="notext"></a>   
+				<a href="#" data-role="button" data-icon="minus" id="minus" data-iconpos="notext"></a>
+			</div>
+			
+			<!-- footer -->
+			<div data-role="footer" class="ui-bar ui-bar-a">
+				<h3 style="display:inline-block;margin:0 0 0 0;">
+				AgMIP ACE-UI Prototype (ver 0.5) : last updated at 7/4/2012
+				</h3>
+			</div>			
+		  
+        </div>
+		
+		<!-- ---------------------------------------------------------------------------------- -->		
+		<!-- menu -> Search Page -->
+        <div data-role="page" id="searchpage" data-add-back-btn="true">
+		
+			<div data-role="header" class="ui-bar ui-bar-c">
+				<h1 style="display:inline-block;margin:0 0 10px 0;">Search Simulation Data</h1>
+				<a href="#mappage" data-icon="home" >View Map</a>
+				<a href="#datatoolsexportpage" data-icon="gear">Data Tools</a>			
+			</div><br>
+
+			<!-- button group : four column layout -->		
+			<div class="ui-grid-c">
+				<div class="ui-block-a">&nbsp;</div>
+				<div class="ui-block-b">
+					<button type="submit" data-theme="a" data-mini="true" id="searchfeature">
+						<h3>Search</h3>
+					</button>
+				</div>
+				<div class="ui-block-c">
+					<button type="submit" data-theme="b" data-mini="true" id="resetoption">
+						<h4>Reset search options</h4>
+					</button>
+				</div>
+				<div class="ui-block-d">&nbsp;</div>
+			</div><br>
+			
+			<!-- search option pane : five column layout -->
+			<div class="ui-grid-d" style="height:90%">
+				<div class="ui-block-a" style="width:3%">&nbsp;</div>
+				<!-- left side otions -->
+				<div class="ui-block-b" style="width:40%">				
+					<h3> * Select Options below</h3>				  
+					<div data-role="collapsible-set" data-content-theme="c" >
+						<!-- 1. location search -->
+						<div id="locCat" data-role="collapsible" data-theme="b" data-content-theme="b" data-mini="true" data-collapsed="true">					
+							<h3>
+								<input type="checkbox" name="locationCB" id="locationCB" 
+								class="custom" data-mini="true" data-theme="b" style="width:150px"/>
+								<label for="locationCB">Location</label>
+							</h3>
+												
+							<p>Select a country below list </p>				
+							<div data-role="fieldcontain" id="countryinputele">
+								<label for="country" style="width:350px">-Country:
+									<select id="country" data-mini="true"><option value=""></option></select>
+								</label>					
+							</div>
+							
+							<p>or Enter an approximate longitude / latitude of a searching place</p>
+							<div data-role="fieldcontain" id="lonlatinputele">
+								<label for="">-Longitude:
+									<input type="textfield" name="lonquery" id="lonquery" onkeypress="return numeric_validation(event)"
+									   value="" placeholder="longitude" autocomplete="off" width="250" data-mini="false"/>
+								</label> &nbsp;&nbsp; ( -180 ~ 180 )<br>					
+								<label for="">-Latitude:&nbsp;&nbsp;&nbsp;
+									<input type="textfield" name="latquery" id="latquery" onkeypress="return numeric_validation(event)"
+									   value="" placeholder="latitude" autocomplete="off"/>
+								</label> &nbsp;&nbsp; ( -90 ~ 90 )
+							</div>				
+						</div>
+						
+						<!-- 2.crop search -->
+						<div id="cropCat" data-role="collapsible" data-theme="a" data-content-theme="b" data-collapsed="true">
+							<h3>
+								<input type="checkbox" name="cropCB" id="cropCB" 
+								class="custom" data-mini="true" data-theme="a" style="width:150px"/>
+								<label for="cropCB">Crop Type</label>
+							</h3>
+							<div data-role="fieldcontain" id="cropinputele">
+								<label for="crop" style="width:350px">- Crop:
+									<select id="crop" data-mini="true"><option value=""></option></select>
+								</label>
+							</div>
+						</div>
+						
+						<!-- 3. date search -->
+						<div id="dateCat" data-role="collapsible" data-theme="e" data-content-theme="b" data-collapsed="true">
+							<h3>
+								<input type="checkbox" name="phdateCB" id="phdateCB" 
+								class="custom" data-mini="true" data-theme="e" style="width:150px"/>
+								<label for="phdateCB">Planting / Harvesting Year</label>
+							</h3>
+							<p>Select Planting and (or) Harvesting Year</p>
+							<div data-role="fieldcontain" id="phyearinputele">
+								<label for="plantyear" style="width:250px">Planting Year:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<select id="plantyear" data-mini="true"><option value=""></option></select>
+								</label>
+								<p>and (or)</p>
+								<label for="harvestyear" style="width:250px">Harvesting Year:
+									<select id="harvestyear" data-mini="true"><option value=""></option></select>
+								</label>
+							</div>				
+						</div>
+						
+						<!-- 4. more search -->
+						<div data-role="collapsible" data-theme="c" data-content-theme="b" data-collapsed="true">
+							<h3>more</h3>
+							<p>...</p>
+						</div>
+						
+					</div>				  
+				</div>
+				<!-- middle blank -->
+				<div class="ui-block-c" style="width:4%">&nbsp;</div>
+				<!-- right side result -->
+				<div class="ui-block-d" style="width:50%">
+					<h3> * Search Results</h3> 
+					&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;
+					<a href='#' onclick="select_all_search_result()">select all</a> &nbsp;|&nbsp;
+					<a href='#'onclick="reset_search_result_selection()">clear selection</a> &nbsp;|&nbsp;
+					<a href='#' id="addSelectionsToQueue">add to data queue</a>&nbsp;|<br>
+					&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;
+					<a href='#' onclick="remove_selected_search_result()">remove selected items</a> &nbsp;|
+					<div class="ui-grid-a" >
+						<div class="ui-block-a ui-bar-e" style="margin: 15px 0 0 0;width:9%;">
+							<ul data-role="listview" data-inset="true" data-mini="true" id="search_results_chkbox"></ul>	
+						</div>
+						<div class="ui-block-b" style="width:91%">
+							<ul data-role="listview" data-inset="true" id="search_results"></ul>
+						</div>
+					</div>				
+				</div>
+				<!-- right blank -->
+				<div class="ui-block-e" style="width:3%">&nbsp;</div>
+			</div><br><br><br><br><br><br><br><br><br>
+
+			<!-- footer -->
+			<div data-role="footer" class="ui-bar ui-bar-b">
+				<h3 style="display:inline-block;margin:0 0 0 0;">
+				AgMIP ACE-UI Prototype (ver 0.5) : last updated at 7/4/2012
+				</h3>
+			</div>	
+
+        </div>
+
+
+		<!-- ---------------------------------------------------------------------------------- -->
+		<!-- menu -> Data Tools Page -->
+		<!-- data tools sub page for export -->
+        <div data-role="page" id="datatoolsexportpage" data-add-back-btn="true">
+		
+			<div data-role="header" class="ui-bar ui-bar-c">
+				<h1>Data Export / Import Tool</h1>
+				<a href="#searchpage" data-icon="search" >Search Data</a>
+				<a href="#mappage" data-icon="home" >View Map</a>
+				<!-- Export/Import Data nav bar -->
+				<div data-role="navbar" data-iconpos="left">
+					<ul>
+						<li><a href="#datatoolsexportpage" data-icon="grid" class="ui-btn-active">Export Data</a></li>
+						<li><a href="#datatoolsimportpage" data-icon="gear">Import Data</a></li>
+					</ul>
+				</div>
+			</div><br>
+
+			<!-- title pane : five column layout -->
+			<div class="ui-grid-d" style="height:70%">
+				<!-- left blank -->
+				<div class="ui-block-a" style="width:3%">&nbsp;</div>
+				<!-- left list -->
+				<div class="ui-block-b" style="width:50%">
+					<h3> * Items in Data Cart</h3>
+					&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;
+					<a href='#' onclick="select_all_items_in_queue()">select all</a> &nbsp;|&nbsp;
+					<a href='#'onclick="reset_queue_item_selection()">clear selection</a> &nbsp;|&nbsp;
+					<a href='#' id='refreshItemsInQueue'>refresh</a> &nbsp;| <br>
+					&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;
+					<a href='#'onclick="remove_selected_items()">remove selected item</a> &nbsp;|&nbsp;
+					<a href='#' onclick="remove_all_items()">remove all items</a> &nbsp;|<br><br>
+					<div class="ui-grid-a" >
+						<div class="ui-block-a ui-bar-e" style="margin: 0px 0 0 0;width:9%;">
+							<ul data-role="listview" data-inset="true" data-mini="true" id="datacart_items_chkbox"></ul>	
+						</div>
+						<div class="ui-block-b" style="width:91%">
+							<ul data-role="listview" data-inset="true" id="datacart_items"></ul>
+						</div>
+					</div>					
+				</div>			
+				<!-- middle blank -->
+				<div class="ui-block-c" style="width:4%">&nbsp;</div>
+				<!-- right content view -->
+				<div class="ui-block-d" style="width:40%">
+					<h3> * Detail Data Information</h3><br><br>
+					<!-- four column layout -->
+					<div class="ui-grid-c">
+						<div class="ui-block-a" style="width:10%">&nbsp;</div>
+						<div class="ui-block-b" style="width:40%"><button type="submit" data-theme="a" id="downloaddata"><h5>Download</h5></button></div>
+						<div class="ui-block-c" style="width:40%"><button type="submit" data-theme="a" id="requestdata"><h5>Request</h5></button></div>
+						<div class="ui-block-d" style="width:10%">&nbsp;</div>
+					</div>
+					<!-- export format selector-->
+					<div id="exportAppFormat" data-role="collapsible" data-theme="c" data-content-theme="b" data-mini="true" data-collapsed="false">
+						<h3>Choose download data format below:</h3>
+						<div  data-role="fieldcontain" style="padding: 0 0 0 0;width:100%;">
+							<fieldset data-role="controlgroup">
+								<div class="ui-grid-b">
+									<div class="ui-block-a" style="width:33%;">
+										<input type="checkbox" name="export-apsim" id="export-apsim" data-mini="true" />
+										<label for="export-apsim">APSIM</label>
+									</div>
+									<div class="ui-block-b" style="width:33%;">
+										<input type="checkbox" name="export-aquacrop" id="export-aquacrop" data-mini="true" />
+										<label for="export-aquacrop">AquaCrop</label>									
+									</div>
+									<div class="ui-block-c" style="width:33%;">
+										<input type="checkbox" name="export-dssat" id="export-dssat" data-mini="true" />
+										<label for="export-dssat">DSSAT</label>									
+									</div>
+								</div>
+								<div class="ui-grid-b">
+									<div class="ui-block-a" style="width:33%;">
+										<input type="checkbox" name="export-stics" id="export-stics" data-mini="true" />
+										<label for="export-stics">STICS</label>									
+									</div>								
+									<div class="ui-block-b" style="width:33%;">
+										<input type="checkbox" name="export-wofost" id="export-wofost" data-mini="true" />
+										<label for="export-wofost">WOFOST</label>
+									</div>
+									<div class="ui-block-c">
+										&nbsp;									
+									</div>
+								</div>								
+							</fieldset>
+						</div>
+					</div>
+					<!-- selected data content view -->
+					<div class="ui-bar-d" style="padding: 0 0 0 0;height:400px">
+						<ul data-role="listview" data-inset="true" id="datacart_contentview"></ul>
+					</div>
+				</div>	
+				<!-- right blank -->
+				<div class="ui-block-e" style="width:3%">&nbsp;</div>
+
+			</div><br><br><br>
+			
+			<!-- footer -->
+			<div data-role="footer" class="ui-bar ui-bar-b">
+				<h3 style="display:inline-block;margin:0 0 0 0;">
+				AgMIP ACE-UI Prototype (ver 0.5) : last updated at 7/4/2012
+				</h3>
+			</div>	
+			
+        </div>		
+		
+		<!-- ---------------------------------------------------------------------------------- -->
+		<!-- data tools sub page for import -->
+        <div data-role="page" id="datatoolsimportpage" data-add-back-btn="true">
+		
+			<div data-role="header" class="ui-bar ui-bar-c">
+				<h1>Data Export / Import Tool</h1>
+				<a href="#searchpage" data-icon="search" >Search Data</a>
+				<a href="#mappage" data-icon="home" >View Map</a>
+				<!-- Export/Import Data nav bar -->
+				<div data-role="navbar" data-iconpos="left">
+					<ul>
+						<li><a href="#datatoolsexportpage" data-icon="grid">Export Data</a></li>
+						<li><a href="#datatoolsimportpage" data-icon="gear" class="ui-btn-active">Import Data</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- title pane: five column layout -->
+			<div class="ui-grid-d" style="height:70%">
+				<div class="ui-block-a" style="width:3%">&nbsp;</div>
+				<!-- left side otions -->
+				<div class="ui-block-b" style="width:3%">&nbsp;</div>
+				<!-- middle blank -->
+				<div class="ui-block-c" style="width:4%">&nbsp;</div>
+				<!-- right side result -->
+				<div class="ui-block-d" style="width:50%">
+					<h3> * Menu A</h3>
+					<!-- ul data-role="listview" data-inset="true" id="search_results"></ul -->
+				</div>
+				<!-- right blank -->
+				<div class="ui-block-e" style="width:40%">				
+				    <h3> * Menu B</h3>					
+				</div>			
+			</div>
+			
+			<br><br><br><br><br><br><br><br><br><br><br>
+			<br><br><br><br><br><br><br><br><br><br><br>
+			
+			<!-- footer -->
+			<div data-role="footer" class="ui-bar ui-bar-b">
+				<h3 style="display:inline-block;margin:0 0 0 0;">
+				AgMIP ACE-UI Prototype (ver 0.5) : last updated at 7/4/2012
+				</h3>
+			</div>	
+			
+        </div>			
+
+		<!-- ---------------------------------------------------------------------------------- -->
+		<!-- menu -> User Guide Page -->
+        <div data-role="page" id="userguidepage" data-add-back-btn="true">
+            <div data-role="header" class="ui-bar ui-bar-c">
+              <h1 style="display:inline-block;margin:0 0 10px 0;">User Guide</h1>
+            </div>
+            <div data-role="content">
+            </div>
+        </div>		
+		
+		<!-- ---------------------------------------------------------------------------------- -->
+		<!-- menu -> Layers Page -->
+		<div data-role="page" id="layerspage" data-add-back-btn="true">
+			<div data-role="header" class="ui-bar ui-bar-c">
+				<h1 style="display:inline-block;margin:0 0 10px 0;">Layers</h1>
+			</div>
+			<div data-role="content">
+				<ul data-role="listview" data-inset="true" data-theme="d" data-dividertheme="c" id="layerslist"></ul>
+			</div>
+		</div>		
+		
+		<!-- ---------------------------------------------------------------------------------- -->
+		<!-- Popup Page when data point is selected-->
+        <div id="popup" data-role="dialog">
+            <div data-position="inline" data-theme="d" data-role="header">
+                <h1>Details</h1>
+            </div>
+            <div data-theme="c" data-role="content">
+                <ul id="details-list" data-role="listview">
+                </ul>
+            </div>
+        </div>
+		
+		<!-- ---------------------------------------------------------------------------------- -->
+    </body>
+	
+</html>
