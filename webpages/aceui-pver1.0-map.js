@@ -22,6 +22,7 @@ var targetLayerName = "Searched Items";
 var datacartFeatureLayer;
 var dctargetLayerName = "Data Cart Items";
 
+
 // init
 var init = function (onSelectFeatureFunction) {
 	// vector layer for locate - not used
@@ -119,6 +120,7 @@ var init = function (onSelectFeatureFunction) {
         autoActivate:true,
         onSelect: onSelectFeatureFunction});		
 
+	/*
     var geolocate = new OpenLayers.Control.Geolocate({
         id: 'locate-control',
         geolocationOptions: {
@@ -127,6 +129,7 @@ var init = function (onSelectFeatureFunction) {
             timeout: 7000
         }
     });
+	*/
 	
     // create map
     map = new OpenLayers.Map({
@@ -140,17 +143,18 @@ var init = function (onSelectFeatureFunction) {
             -20037508.34, -20037508.34, 20037508.34, 20037508.34
         ),
         controls: [
-            new OpenLayers.Control.Attribution(),
+            new OpenLayers.Control.Attribution(),			
             new OpenLayers.Control.TouchNavigation({
                 dragPanOptions: {
                     enableKinetic: true
                 }
-            }),
+            }),			
 			new OpenLayers.Control.Navigation(),
 			//new OpenLayers.Control.ScaleLine(), //fix location
-            geolocate,
-            selectControl,
-			dcselectControl
+			//new OpenLayers.Control.ZoomBox({alwaysZoom:true}),
+            //geolocate,
+            dcselectControl,
+			selectControl			
         ],
         layers: [
             new OpenLayers.Layer.OSM("OpenStreetMap", null, {
@@ -180,8 +184,8 @@ var init = function (onSelectFeatureFunction) {
                 transitionEffect: 'resize'
             }),
             vector,
-			searchFeatureLayer,
-			datacartFeatureLayer
+			datacartFeatureLayer,
+			searchFeatureLayer			
         ],
         center: new OpenLayers.LonLat(0, 0),
         zoom: 2 // YJ: default 1 - does not work at local web
@@ -193,7 +197,7 @@ var init = function (onSelectFeatureFunction) {
         strokeColor: '#f00',
         strokeOpacity: 0.6
     };
-	
+	/*
     geolocate.events.register("locationupdated", this, function(e) {
         vector.removeAllFeatures();
         vector.addFeatures([
@@ -221,6 +225,8 @@ var init = function (onSelectFeatureFunction) {
         ]);
         map.zoomToExtent(vector.getDataExtent());
     });
+	*/
+				
 };
 
 

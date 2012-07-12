@@ -57,6 +57,10 @@ $(document).ready(function() {
     });	
     $("#minus").click(function(){
 		if(map.getZoom()<3){
+			var bound = new OpenLayers.Bounds(
+				-20761519.9, -11114555.4, 20761519.9, 11114555.4
+			)
+			map.zoomToExtent(bound, true);
 		}else{
 			map.zoomOut();
 		}        
@@ -73,17 +77,31 @@ $(document).ready(function() {
 	*/
     // popup page show
     $('#popup').live('pageshow',function(event, ui){
+		
+		//var test1 = selectedFeature.cluster[0];
+		//alert(test1);
+		
         var li = "";
+		/* original - when not using cluster
         for(var attr in selectedFeature.attributes){
             li += "<li><div style='width:25%;float:left'>" + attr + "</div><div style='width:75%;float:right'>" 
             + selectedFeature.attributes[attr] + "</div></li>";
         }
+		*/
+		
+		for(var attr in selectedFeature.cluster[0].attributes){
+            li += "<li><div style='width:35%;float:left'>" + attr + "</div><div style='width:65%;float:right'>" 
+            + selectedFeature.cluster[0].attributes[attr] + "</div></li>";
+        }
+		
         $("ul#details-list").empty().append(li).listview("refresh");
+	
     });
 	
 	// search page show
     $('#searchpage').live('pageshow',function(event, ui){
-	
+		// transform lon/lat to this coord system for raw-data1 version
+		_initFeatureData();
 		// initialize dropdown box at search page
 		_initDropdownBox();
 		// first row
@@ -118,8 +136,10 @@ $(document).ready(function() {
 	// data tool export page show
     $('#datatoolsexportpage').live('pageshow',function(event, ui){
 
-		// first row
-		displayDataCartTopRow();
+		if(datacartFeaturesObj.features.length == 0){
+			// first row
+			displayDataCartTopRow();
+		}
 		
 		// button of refresh items in list
 		$('#refreshItemsInQueue').click(function(e){
@@ -137,6 +157,7 @@ $(document).ready(function() {
 	
 	//init data cart
 	resetDatacart();
+
 });
 
 /**
@@ -151,7 +172,8 @@ function _initDropdownBox(){
 	}	
 	//for crop item list
 	for(var i=0;i<cropItemList.length;i++){
-		$('<option>'+cropItemList[i].toString()+'</option>').appendTo('#crop');
+		var key = cropItemList[i].toString();
+		$('<option value=\''+key+'\'>'+getCropName(key)+'</option>').appendTo('#crop');
 	}		
 	//for planting year item list
 	for(var i=1970;i<2013;i++){
@@ -291,7 +313,7 @@ function _addLayerToList(layer) {
             text: layer.name
         })
             .click(function() {
-                $.mobile.changePage('#mappage');
+                //$.mobile.changePage('#mappage');
                 if (layer.isBaseLayer) {
                     layer.map.setBaseLayer(layer);
                 } else {

@@ -194,6 +194,11 @@ function displayDataContent(datakey){
 		.appendTo('#datacart_contentview')
 		.show();		
 }  
+// update data cart list by add queue func at search page
+function updateDatacartList(){
+	clearQueueList();
+	displayDatacartItems(datacartFeaturesObj);
+}
 // update map
 function updateDataCartItem(){
 	_updateDataCartPlot(datacartFeaturesObj);

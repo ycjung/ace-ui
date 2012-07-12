@@ -38,6 +38,7 @@ function _removeDataFromSelectedObject(datakey){
 	for(var j=0;j<selectedFeaturesObj.features.length;j++){
 		sitem = selectedFeaturesObj.features[j].properties.datakey;
 		if(datakey == sitem) {
+			//alert(datakey+'/'+sitem+'/'+(datakey == sitem));
 			selectedFeaturesObj.features.splice(j,1);
 			break;
 		}
@@ -214,7 +215,8 @@ function _searchContents(){
 	if(cropCategory){
 		var dirtyFlg = false;
 		// crop field
-		var crop = $('#crop option:selected').text();
+		var crop = $('#crop option:selected').val();
+
 		if(crop != '') {
 			optionValueArray.options[1].Child[0].Crop = true;
 			optionValueArray.options[1].Child[0].Fvalue = crop;
@@ -320,8 +322,10 @@ function exeAddSelectionsToQueue(){
 	if(itemnumber>0){
 		// remove from list
 		remove_selected_search_result();	
-		// update datacart item
+		// update map of datacart item
 		updateDataCartItem();
+		// update datacart item
+		updateDatacartList();
 	}
 }
 
