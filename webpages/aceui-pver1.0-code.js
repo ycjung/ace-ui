@@ -9,7 +9,9 @@ function getCropName(key){
 	return 'Unknown';
 }
 
-
+/**
+ * CropID - Real Name defined by ICASA
+ */
 var cropcode = { "code" : 
 	[
 		{ "ID" : "AL", "Crop" : "Alfalfa/Lucerne" },

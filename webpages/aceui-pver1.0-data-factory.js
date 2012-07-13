@@ -1,45 +1,4 @@
-/*
-// example dataset
-var features = {
-	"type": "FeatureCollection",
-	"features": [
-		{ "type": "Feature", "geometry": {"type": "Point", "coordinates": [1332700, 7906300]},
-			"properties": {"datakey":"item1","Name": "Igor Tihonov", "Country":"Sweden", "City":"Gothenburg","Crop":"Wheat","PlantingYear":"1988","HarvestYear":"1988"}},
-		{ "type": "Feature", "geometry": {"type": "Point", "coordinates": [790300, 6573900]},
-			"properties": {"datakey":"item2","Name": "Marc Jansen", "Country":"Germany", "City":"Bonn","Crop":"Maize","PlantingYear":"1987","HarvestYear":"1987"}},
-		{ "type": "Feature", "geometry": {"type": "Point", "coordinates": [568600, 6817300]},
-			"properties": {"datakey":"item3","Name": "Bart van den Eijnden", "Country":"Netherlands", "City":"Utrecht","Crop":"Soybean","PlantingYear":"1988","HarvestYear":"1988"}},
-		{ "type": "Feature", "geometry": {"type": "Point", "coordinates": [-7909900, 5215100]},
-			"properties": {"datakey":"item4","Name": "Christopher Schmidt", "Country":"United States of America", "City":"Boston","Crop":"Maize","PlantingYear":"1987","HarvestYear":"1987"}},
-		{ "type": "Feature", "geometry": {"type": "Point", "coordinates": [-937400, 5093200]},
-			"properties": {"datakey":"item5","Name": "Jorge Gustavo Rocha", "Country":"Portugal", "City":"Braga","Crop":"Wheat","PlantingYear":"1988","HarvestYear":"1988"}},
-		{ "type": "Feature", "geometry": {"type": "Point", "coordinates": [-355300, 7547800]},
-			"properties": {"datakey":"item6","Name": "Jennie Fletcher ", "Country":"Scotland", "City":"Edinburgh","Crop":"Soybean","PlantingYear":"1987","HarvestYear":"1987"}},
-		{ "type": "Feature", "geometry": {"type": "Point", "coordinates": [657068.53608487, 5712321.2472725]},
-			"properties": {"datakey":"item7","Name": "Bruno Binet ", "Country":"France", "City":"Chambéry","Crop":"Wheat","PlantingYear":"1988","HarvestYear":"1988"}},
-		{ "type": "Feature", "geometry": {"type": "Point", "coordinates": [667250.8958124, 5668048.6072737]},
-			"properties": {"datakey":"item8","Name": "Eric Lemoine", "Country":"France", "City":"Theys","Crop":"Soybean","PlantingYear":"1987","HarvestYear":"1987"}},
-		{ "type": "Feature", "geometry": {"type": "Point", "coordinates": [653518.03606319, 5721118.5122914]},
-			"properties": {"datakey":"item9","Name": "Antoine Abt", "Country":"France", "City":"La Motte Servolex","Crop":"Maize","PlantingYear":"1988","HarvestYear":"1988"}},
-		{ "type": "Feature", "geometry": {"type": "Point", "coordinates": [657985.78042416, 5711862.6251028]},
-			"properties": {"datakey":"item10","Name": "Pierre Giraud", "Country":"France", "City":"Chambéry","Crop":"Wheat","PlantingYear":"1987","HarvestYear":"1987"}},
-		{ "type": "Feature", "geometry": {"type": "Point", "coordinates": [742941.93818208, 5861818.9477535]},
-			"properties": {"datakey":"item11","Name": "Stéphane Brunner", "Country":"Switzerland", "City":"Paudex","Crop":"Soybean","PlantingYear":"1988","HarvestYear":"1988"}},
-		{ "type": "Feature", "geometry": {"type": "Point", "coordinates": [736082.61064069, 5908165.4649505]},
-			"properties": {"datakey":"item12","Name": "Frédéric Junod", "Country":"Switzerland", "City":"Montagny-près-Yverdon","Crop":"Maize","PlantingYear":"1986","HarvestYear":"1986"}},
-		{ "type": "Feature", "geometry": {"type": "Point", "coordinates": [771595.97057525, 5912284.7041793]},
-			"properties": {"datakey":"item13","Name": "Cédric Moullet", "Country":"Switzerland", "City":"Payerne","Crop":"Wheat","PlantingYear":"1988","HarvestYear":"1988"}},
-		{ "type": "Feature", "geometry": {"type": "Point", "coordinates": [744205.23922364, 5861277.319748]},
-			"properties": {"datakey":"item14","Name": "Benoit Quartier", "Country":"Switzerland", "City":"Lutry","Crop":"Soybean","PlantingYear":"1986","HarvestYear":"1986"}},
-		{ "type": "Feature", "geometry": {"type": "Point", "coordinates": [1717430.147101, 5954568.7127565]},
-			"properties": {"datakey":"item15","Name": "Andreas Hocevar", "Country":"Austria", "City":"Graz","Crop":"Potato","PlantingYear":"1988","HarvestYear":"1988"}},
-		{ "type": "Feature", "geometry": {"type": "Point", "coordinates": [-12362007.067301,5729082.2365672]},
-			"properties": {"datakey":"item16","Name": "Tim Schaub", "Country":"United States of America", "City":"Bozeman","Crop":"Potato","PlantingYear":"1986","HarvestYear":"1986"}},
-		{ "type": "Feature", "geometry": {"type": "Point", "coordinates": [-9179900, 3465100]},
-			"properties": {"datakey":"item16","Name": "Tim Schaub", "Country":"United States of America", "City":"Gainesville","Crop":"Potato","PlantingYear":"1986","HarvestYear":"1986"}}
-	]
-};
-*/
+
 /**
  * display initial features. original. called at init
  */ 

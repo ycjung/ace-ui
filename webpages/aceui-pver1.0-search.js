@@ -303,6 +303,27 @@ function remove_selected_search_result(){
 	});	
 	if(isUpdated) updateSearchedItem();
 }
+function remove_all_search_result(){
+	var isUpdated = false;
+	$('#search_results_chkbox').find(':input').each(function(){
+		switch(this.type){
+			case 'checkbox': 
+				{	
+					var chkboxId = $(this).attr('id');//ex) itemDatakey+'_li_chkbox'
+					var leftLidId = _getSearchItemLeftLiIDFromChkboxId(chkboxId);	
+					var rightLidId = _getSearchItemRightLiIDFromChkboxId(chkboxId);
+					var datakey = _getSearchItemDatakeyFromChkboxId(chkboxId);
+					//remove ui
+					$('#'+leftLidId).remove();//remove li of checkbox
+					$('#'+rightLidId).remove();//remove li of item			
+					//remove item	
+					_removeDataFromSelectedObject(datakey);
+					isUpdated = true;
+				}
+		}	
+	});	
+	if(isUpdated) updateSearchedItem();
+}
 function exeAddSelectionsToQueue(){
 	var datakeys = [];
 	$('#search_results_chkbox').find(':input').each(function(){
