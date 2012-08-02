@@ -18,7 +18,7 @@ function _initFeatureData(){
 	}
 }
 
-
+// current cache data
 var features = {
 	"type": "FeatureCollection",
 	"features": [

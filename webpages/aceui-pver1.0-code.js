@@ -1,12 +1,12 @@
 
 function getCropName(key){
-	for(var i=0;i<cropcode.code.length;i++){
-		if(key == cropcode.code[i].ID){
-			return cropcode.code[i].Crop;
-			break;
-		}
-	}
-	return 'Unknown';
+    for(var i=0;i<cropcode.code.length;i++){
+        if(key == cropcode.code[i].ID){
+                return cropcode.code[i].Crop;
+                break;
+        }
+    }
+    return 'Unknown';
 }
 
 /**

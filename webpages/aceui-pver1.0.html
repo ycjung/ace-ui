@@ -6,27 +6,28 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
         <meta name="apple-mobile-web-app-capable" content="yes">
 		
-		<link rel="stylesheet"  href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
-		<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-		<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>	
-				
-		
-		<link rel="stylesheet" href="aceui.style.a.css" type="text/css">
+        <link rel="stylesheet"  href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
+        <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>	
+
+
+        <link rel="stylesheet" href="aceui.style.a.css" type="text/css">
         <link rel="stylesheet" href="aceui.style.b.css" type="text/css">
-		
+	
+        <!-- openlayer library -->
         <script src="../OpenLayers.js?mobile"></script>
 		
         <script src="aceui-pver1.0-base.js"></script>
-		<script src="aceui-pver1.0-code.js"></script>
+        <script src="aceui-pver1.0-code.js"></script>
         <script src="aceui-pver1.0-search.js"></script>
-		<script src="aceui-pver1.0-datatool.js"></script>
-		<script src="aceui-pver1.0-map.js"></script>
-		<script src="aceui-pver1.0-data-factory.js"></script>	
-		<!--script src="aceui-pver1.0-raw-data.js"></script-->	
-		<script src="aceui-pver1.0-raw-data1.js"></script>	
-		
-		<!-- jeoquery library -->
-		<script type="text/javascript" src="jeoquery.js"></script>
+        <script src="aceui-pver1.0-datatool.js"></script>
+        <script src="aceui-pver1.0-map.js"></script>
+        <script src="aceui-pver1.0-data-factory.js"></script>
+        <script src="aceui-pver1.0-data-service.js"></script>
+        <script src="aceui-pver1.0-raw-data.js"></script>	
+
+        <!-- jeoquery library -->
+        <script type="text/javascript" src="jeoquery.js"></script>
 		
     </head>
     <body>
@@ -91,12 +92,12 @@
 				<div class="ui-block-a">&nbsp;</div>
 				<div class="ui-block-b">
 					<button type="submit" data-theme="a" data-mini="true" id="searchfeature">
-						<h3>Search</h3>
+						Search
 					</button>
 				</div>
 				<div class="ui-block-c">
 					<button type="submit" data-theme="b" data-mini="true" id="resetoption">
-						<h4>Reset search options</h4>
+						Reset search options
 					</button>
 				</div>
 				<div class="ui-block-d">&nbsp;</div>
@@ -105,7 +106,7 @@
 			<!-- search option pane : five column layout -->
 			<div class="ui-grid-d" style="height:90%">
 				<div class="ui-block-a" style="width:3%">&nbsp;</div>
-				<!-- left side otions -->
+				<!-- left side options -->
 				<div class="ui-block-b" style="width:40%">				
 					<h3> * Select Options below</h3>				  
 					<div data-role="collapsible-set" data-content-theme="c" >
@@ -126,11 +127,11 @@
 							
 							<p>or Enter an approximate longitude / latitude of a searching place</p>
 							<div data-role="fieldcontain" id="lonlatinputele">
-								<label for="">-Longitude:
+								<label for="lonquery">-Longitude:
 									<input type="textfield" name="lonquery" id="lonquery" onkeypress="return numeric_validation(event)"
-									   value="" placeholder="longitude" autocomplete="off" width="250" data-mini="false"/>
+									   value="" placeholder="longitude" autocomplete="off" data-mini="false"/>
 								</label> &nbsp;&nbsp; ( -180 ~ 180 )<br>					
-								<label for="">-Latitude:&nbsp;&nbsp;&nbsp;
+								<label for="latquery">-Latitude:&nbsp;&nbsp;&nbsp;
 									<input type="textfield" name="latquery" id="latquery" onkeypress="return numeric_validation(event)"
 									   value="" placeholder="latitude" autocomplete="off"/>
 								</label> &nbsp;&nbsp; ( -90 ~ 90 )
@@ -185,7 +186,7 @@
 					<h3> * Search Results</h3> 
 					&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;
 					<a href='#' onclick="select_all_search_result()">select all</a> &nbsp;|&nbsp;
-					<a href='#'onclick="reset_search_result_selection()">clear selection</a> &nbsp;|&nbsp;
+					<a href='#' onclick="reset_search_result_selection()">clear selection</a> &nbsp;|&nbsp;
 					<a href='#' id="addSelectionsToQueue">add to data queue</a>&nbsp;|<br>
 					&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;
 					<a href='#' onclick="remove_selected_search_result()">remove selected items</a> &nbsp;|&nbsp;
@@ -240,10 +241,10 @@
 					<h3> * Items in Data Cart</h3>
 					&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;
 					<a href='#' onclick="select_all_items_in_queue()">select all</a> &nbsp;|&nbsp;
-					<a href='#'onclick="reset_queue_item_selection()">clear selection</a> &nbsp;|&nbsp;
+					<a href='#' onclick="reset_queue_item_selection()">clear selection</a> &nbsp;|&nbsp;
 					<a href='#' id='refreshItemsInQueue'>refresh</a> &nbsp;| <br>
 					&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;
-					<a href='#'onclick="remove_selected_items()">remove selected item</a> &nbsp;|&nbsp;
+					<a href='#' onclick="remove_selected_items()">remove selected item</a> &nbsp;|&nbsp;
 					<a href='#' onclick="remove_all_items()">remove all items</a> &nbsp;|<br><br>
 					<div class="ui-grid-a" >
 						<div class="ui-block-a ui-bar-e" style="margin: 0px 0 0 0;width:9%;">
@@ -262,8 +263,8 @@
 					<!-- four column layout -->
 					<div class="ui-grid-c">
 						<div class="ui-block-a" style="width:10%">&nbsp;</div>
-						<div class="ui-block-b" style="width:40%"><button type="submit" data-theme="a" id="downloaddata"><h5>Download</h5></button></div>
-						<div class="ui-block-c" style="width:40%"><button type="submit" data-theme="a" id="requestdata"><h5>Request</h5></button></div>
+						<div class="ui-block-b" style="width:40%"><button type="submit" data-theme="a" data-mini="true" id="downloaddata">Download</button></div>
+						<div class="ui-block-c" style="width:40%"><button type="submit" data-theme="a" data-mini="true" id="requestdata">Request</button></div>
 						<div class="ui-block-d" style="width:10%">&nbsp;</div>
 					</div>
 					<!-- export format selector-->
